@@ -27,6 +27,15 @@
       </a>
       
       <div class="header-right">
+        <!-- Sound Toggle Button -->
+        <button class="sound-toggle-btn" id="sound-toggle" aria-label="Toggle sound effects" title="Toggle sound effects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="volume-icon">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
         <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -37,10 +46,14 @@
     </div>
   </header>
 
+  <!-- Retro scanlines overlay representing CRT arcade screen -->
+  <div class="scanlines"></div>
+
   <!-- CONTENT -->
   <main class="page-container container">
     <h1>About <span class="gradient-text">Host Macedonia</span></h1>
-    <div class="page-content">
+    <div class="page-content hud-panel" style="padding: 40px; border-radius: var(--radius-lg); margin-top: 32px;">
+      <div class="hud-panel-inner"></div>
       <p>Welcome to Host Macedonia. We are an independent review and comparison platform dedicated to evaluating web hosting providers and server performance specifically for users, businesses, and developers in North Macedonia.</p>
       
       <h2>Our Mission</h2>

@@ -72,6 +72,9 @@
 </head>
 <body>
 
+  <!-- Retro scanlines overlay representing CRT arcade screen -->
+  <div class="scanlines"></div>
+
   <!-- ============================================
        HEADER
        ============================================ -->
@@ -88,6 +91,15 @@
       </a>
       
       <div class="header-right">
+        <!-- Sound Toggle Button -->
+        <button class="sound-toggle-btn" id="sound-toggle" aria-label="Toggle sound effects" title="Toggle sound effects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="volume-icon">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
         <!-- Theme Toggle Button -->
         <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
@@ -100,33 +112,17 @@
   </header>
 
   <!-- ============================================
-       HERO SECTION
+       HERO SECTION WITH THREE.JS CANVAS
        ============================================ -->
   <section class="hero-section" id="hero">
-    <div class="container">
-      <div class="hero-cloud">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#4f46e5"/>
-              <stop offset="100%" style="stop-color:#7c3aed"/>
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="b"/>
-              <feMerge>
-                <feMergeNode in="b"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-          <path d="M60 8L16 28V56C16 84 60 112 60 112S104 84 104 56V28L60 8Z" fill="url(#hg)" opacity="0.15" filter="url(#glow)"/>
-          <path d="M60 14L22 32V56C22 80 60 106 60 106S98 80 98 56V32L60 14Z" fill="none" stroke="url(#hg)" stroke-width="2"/>
-          <path d="M76 68A12 12 0 0 0 76 44h-2.5a16 16 0 1 0-31 0H40a12 12 0 0 0 0 24h36Z" fill="none" stroke="url(#hg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="52" y1="52" x2="68" y2="52" stroke="url(#hg)" stroke-width="3" stroke-linecap="round"/>
-          <line x1="52" y1="60" x2="68" y2="60" stroke="url(#hg)" stroke-width="3" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="hero-badge">⚡ Tested & Ranked — May 2026</span>
+    <!-- WebGL Background Canvas Container -->
+    <div class="hero-canvas-container">
+      <canvas id="three-hero-canvas"></canvas>
+    </div>
+
+    <!-- Relative Content Overlay -->
+    <div class="container" style="position: relative; z-index: 1;">
+      <span class="hero-badge">⚡ Real-Time WebGL Arena — May 2026</span>
       <h1>Best <span class="gradient-text">Hosting</span> in<br>Macedonia 2026</h1>
       <p>We have tested and compared the leading global web hosting providers based on speed, uptime, and customer support. Find the ideal hosting for your website.</p>
       <a href="#comparison" class="btn-hosting" style="display:inline-flex; width:auto; font-size:1.1rem; padding:16px 36px;" id="hero-cta">View Rankings ↓</a>
@@ -174,51 +170,18 @@
         </div>
       </div>
 
-      <!-- Interactive Speed Comparison Chart -->
-      <div class="speed-chart-section">
-        <h3 class="speed-chart-title">Server Response Speed (ms)</h3>
-        <p class="speed-chart-desc">Response times measured directly from Skopje, Macedonia. Lower is better.</p>
-        <div class="speed-chart-grid" id="speed-chart-grid">
-          <!-- Rows will be highlighted via Javascript on hover/click -->
-          <div class="chart-row" data-target="a2hosting">
-            <span class="chart-label">A2 Hosting</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 40.9%"></div></div>
-            <span class="chart-val">90 ms</span>
-          </div>
-          <div class="chart-row" data-target="siteground">
-            <span class="chart-label">SiteGround</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 54.5%"></div></div>
-            <span class="chart-val">120 ms</span>
-          </div>
-          <div class="chart-row" data-target="hostinger">
-            <span class="chart-label">Hostinger</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 63.6%"></div></div>
-            <span class="chart-val">140 ms</span>
-          </div>
-          <div class="chart-row" data-target="greengeeks">
-            <span class="chart-label">GreenGeeks</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 75%"></div></div>
-            <span class="chart-val">165 ms</span>
-          </div>
-          <div class="chart-row" data-target="bluehost">
-            <span class="chart-label">Bluehost</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 81.8%"></div></div>
-            <span class="chart-val">180 ms</span>
-          </div>
-          <div class="chart-row" data-target="dreamhost">
-            <span class="chart-label">DreamHost</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 88.6%"></div></div>
-            <span class="chart-val">195 ms</span>
-          </div>
-          <div class="chart-row" data-target="namecheap">
-            <span class="chart-label">Namecheap</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 95.4%"></div></div>
-            <span class="chart-val">210 ms</span>
-          </div>
-          <div class="chart-row" data-target="hostgator">
-            <span class="chart-label">HostGator</span>
-            <div class="chart-bar-container"><div class="chart-bar" style="width: 100%"></div></div>
-            <span class="chart-val">220 ms</span>
+      <!-- SPACESHIP BENCHMARK MINIGAME -->
+      <div class="minigame-section">
+        <h2 style="font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 8px;">Uptime & Speed Benchmarker</h2>
+        <p style="text-align:center; color:var(--text-muted); font-size:0.95rem; max-width:600px; margin:0 auto 24px; line-height:1.7;">
+          Run the real-time speed simulation. The 8 hostings race on a 3D grid track based on their Skopje tested pings!
+        </p>
+        <div class="minigame-container hud-panel" id="minigame-element">
+          <div class="hud-panel-inner"></div>
+          <canvas id="racer-canvas"></canvas>
+          <div class="minigame-controls">
+            <button class="racer-btn" id="start-race-btn">⚡ Run Speed Test Race</button>
+            <div class="scoreboard-panel" id="scoreboard">SCOREBOARD: Click "Run Speed Test" to start benchmark simulation.</div>
           </div>
         </div>
       </div>
@@ -227,7 +190,8 @@
       <div class="hosting-cards-container" id="hosting-cards-list">
         
         <!-- #1 Hostinger -->
-        <article class="hosting-card featured" id="hostinger" data-rank="1" data-price="1.99" data-speed="140" data-rating="9.8">
+        <article class="hosting-card featured cyber-glow hud-panel" id="hostinger" data-rank="1" data-price="1.99" data-speed="140" data-rating="9.8">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number gold">#1</div>
@@ -272,7 +236,8 @@
         </article>
 
         <!-- #2 SiteGround -->
-        <article class="hosting-card" id="siteground" data-rank="2" data-price="2.99" data-speed="120" data-rating="9.6">
+        <article class="hosting-card hud-panel" id="siteground" data-rank="2" data-price="2.99" data-speed="120" data-rating="9.6">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number silver">#2</div>
@@ -317,7 +282,8 @@
         </article>
 
         <!-- #3 Bluehost -->
-        <article class="hosting-card" id="bluehost" data-rank="3" data-price="2.75" data-speed="180" data-rating="9.2">
+        <article class="hosting-card hud-panel" id="bluehost" data-rank="3" data-price="2.75" data-speed="180" data-rating="9.2">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number bronze">#3</div>
@@ -352,7 +318,7 @@
             <div class="hosting-stat"><span class="hosting-stat-icon">🔄</span><span class="hosting-stat-val">Daily</span><span class="hosting-stat-lbl">Backups</span></div>
           </div>
           <div class="hosting-features">
-            <span class="hosting-feat"><span class="ck">✓</span> Officially WordPress Recommended</span>
+            <span class="hosting-feat"><span class="ck">✓</span> WordPress Recommended</span>
             <span class="hosting-feat"><span class="ck">✓</span> Free Domain for 1st Year</span>
             <span class="hosting-feat"><span class="ck">✓</span> 1-Click WordPress Installer</span>
             <span class="hosting-feat"><span class="ck">✓</span> Free Design Themes Included</span>
@@ -361,7 +327,8 @@
         </article>
 
         <!-- #4 Namecheap -->
-        <article class="hosting-card" id="namecheap" data-rank="4" data-price="1.45" data-speed="210" data-rating="8.9">
+        <article class="hosting-card hud-panel" id="namecheap" data-rank="4" data-price="1.45" data-speed="210" data-rating="8.9">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number" style="color:var(--text-muted);">#4</div>
@@ -405,7 +372,8 @@
         </article>
 
         <!-- #5 DreamHost -->
-        <article class="hosting-card" id="dreamhost" data-rank="5" data-price="2.59" data-speed="195" data-rating="8.8">
+        <article class="hosting-card hud-panel" id="dreamhost" data-rank="5" data-price="2.59" data-speed="195" data-rating="8.8">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number" style="color:#8b5cf6">#5</div>
@@ -449,7 +417,8 @@
         </article>
 
         <!-- #6 A2 Hosting -->
-        <article class="hosting-card" id="a2hosting" data-rank="6" data-price="2.99" data-speed="90" data-rating="8.7">
+        <article class="hosting-card hud-panel" id="a2hosting" data-rank="6" data-price="2.99" data-speed="90" data-rating="8.7">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number" style="color:#10b981">#6</div>
@@ -494,7 +463,8 @@
         </article>
 
         <!-- #7 GreenGeeks -->
-        <article class="hosting-card" id="greengeeks" data-rank="7" data-price="2.95" data-speed="165" data-rating="8.6">
+        <article class="hosting-card hud-panel" id="greengeeks" data-rank="7" data-price="2.95" data-speed="165" data-rating="8.6">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number" style="color:#059669">#7</div>
@@ -539,7 +509,8 @@
         </article>
 
         <!-- #8 HostGator -->
-        <article class="hosting-card" id="hostgator" data-rank="8" data-price="2.64" data-speed="220" data-rating="8.5">
+        <article class="hosting-card hud-panel" id="hostgator" data-rank="8" data-price="2.64" data-speed="220" data-rating="8.5">
+          <div class="hud-panel-inner"></div>
           <div class="hosting-card-header">
             <div class="hosting-rank">
               <div class="rank-number" style="color:#d97706">#8</div>
@@ -596,22 +567,26 @@
         Four key reasons why choosing a high-performance server is the most important decision for your online presence.
       </p>
       <div class="benefits-grid">
-        <div class="benefit-card">
+        <div class="benefit-card hud-panel">
+          <div class="hud-panel-inner"></div>
           <div class="benefit-icon">🚀</div>
           <h3 class="benefit-title">Loading Speed</h3>
           <p class="benefit-text">Fast hosting guarantees a better user experience and higher rankings on search engines (SEO).</p>
         </div>
-        <div class="benefit-card">
+        <div class="benefit-card hud-panel">
+          <div class="hud-panel-inner"></div>
           <div class="benefit-icon">🔒</div>
           <h3 class="benefit-title">Maximum Security</h3>
           <p class="benefit-text">Protect your website from malware, cyber attacks, and accidental data loss with regular backups.</p>
         </div>
-        <div class="benefit-card">
+        <div class="benefit-card hud-panel">
+          <div class="hud-panel-inner"></div>
           <div class="benefit-icon">📈</div>
           <h3 class="benefit-title">Reliability (Uptime)</h3>
           <p class="benefit-text">Ensure your website is always available to visitors and potential clients 24/7.</p>
         </div>
-        <div class="benefit-card">
+        <div class="benefit-card hud-panel">
+          <div class="hud-panel-inner"></div>
           <div class="benefit-icon">👥</div>
           <h3 class="benefit-title">Expert Support</h3>
           <p class="benefit-text">Get instant help from expert systems engineers whenever you face any server or software issues.</p>
@@ -722,7 +697,8 @@
        ============================================ -->
   <section style="padding:80px 0;">
     <div class="container">
-      <div class="cta-box">
+      <div class="cta-box hud-panel">
+        <div class="hud-panel-inner"></div>
         <h2>Start Your Website <span class="gradient-text">Today</span></h2>
         <p>Select the best web hosting provider and ensure top performance for less than €2 per month.</p>
         <a href="#comparison" class="btn-hosting" style="display:inline-flex; width:auto;" id="box-cta">Compare Top Deals Now →</a>
@@ -750,6 +726,8 @@
     </div>
   </footer>
 
+  <!-- Include Three.js via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Core Javascript -->
   <script src="app.js"></script>
 </body>
